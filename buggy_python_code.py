@@ -31,9 +31,14 @@ def fetch_website(urllib_version, url):
     fetches a website from url
     """
     # Import the requested version (2 or 3) of urllib
-    exec(f"import urllib{urllib_version} as urllib", globals())
-    # Fetch and print the requested URL
- 
+    if urllib_version == "2":
+        exec(f"import urllib2 as urllib", globals())
+    elif urllib_version == "3":
+        exec(f"import urllib3 as urllib", globals())
+    else:
+        raise ValueError("Invalid urllib version. Valids are 2 or 3", urlib_version)
+
+    # Fetch and print the requested URL 
     try:
         http = urllib.PoolManager()
         r = http.request('GET', url)
